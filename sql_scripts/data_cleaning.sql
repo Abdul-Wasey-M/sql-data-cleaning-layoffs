@@ -74,10 +74,60 @@ FROM layoffs_staging2
 WHERE row_num>1;
 
 
-
-
-
 -- Step 3: Standardize data
+SELECT * 
+FROM layoffs_staging2;
+
+SELECT company,TRIM(company)
+FROM layoffs_staging2;
+
+UPDATE layoffs_staging2
+SET company=TRIM(company);
+
+SELECT DISTINCT location
+FROM layoffs_staging2;
+
+SELECT DISTINCT industry
+FROM layoffs_staging2;
+
+SELECT  industry
+FROM layoffs_staging2
+WHERE industry LIKE 'Crypto%';
+
+UPDATE layoffs_staging2
+SET industry='Crypto'
+WHERE industry LIKE 'Crypto%';
+
+SELECT DISTINCT country
+FROM layoffs_staging2
+WHERE country LIKE 'United States%';
+
+SELECT DISTINCT country,TRIM(TRAILING '.' FROM country)
+FROM layoffs_staging2;
+
+UPDATE layoffs_staging2
+SET country=TRIM(TRAILING '.' FROM country);
+
+SELECT DISTINCT country
+FROM layoffs_staging2
+WHERE country LIKE 'United States%';
+
+SELECT `date`
+FROM layoffs_staging2;
+
+SELECT `date`,str_to_date(`date`,'%m/%d/%Y')
+FROM layoffs_staging2;
+
+UPDATE layoffs_staging2
+SET `date`= str_to_date(`date`,'%m/%d/%Y');
+
+-- changing data type to date
+
+ALTER TABLE layoffs_staging2
+MODIFY COLUMN `date` DATE;
+
+SELECT *
+FROM layoffs_staging2;
 
 -- Step 4: Handle null values
 
