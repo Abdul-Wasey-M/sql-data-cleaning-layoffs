@@ -167,9 +167,31 @@ SET t1.industry=t2.industry
 WHERE t1.industry IS NULL  AND t2.industry IS NOT NULL;
 
 
-
-
-
 -- Step 5: Remove unnecessary records
+SELECT *
+FROM layoffs_staging2
+WHERE total_laid_off IS NULL
+AND percentage_laid_off IS NULL;    
 
+-- the above are unnecessary records , because without total_laid_off and percentage_laid_off it becomes useless as the dataset it self titled as layoffs.alter
+
+DELETE
+FROM layoffs_staging2
+WHERE total_laid_off IS NULL
+AND percentage_laid_off IS NULL;  
+
+SELECT *
+FROM layoffs_staging2;
+
+-- the column row_num is not necessary now
+
+ALTER TABLE layoffs_staging2
+DROP COLUMN row_num;
+
+SELECT *
+FROM layoffs_staging2;
+  
 -- Final cleaned dataset
+
+SELECT *
+FROM layoffs_staging2;
